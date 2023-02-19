@@ -11,7 +11,7 @@ module.exports = {
 
     // get one user by id
     getSingleUser(req, res) {
-        User.findOne({ _id: req.params.id })
+        User.findOne({ _id: req.params.userId })
         .select('-__v')
         .then((user) => 
             !user ? res.status(404).json({ message: 'No user found with this id' }) : res.json(user)
@@ -30,7 +30,7 @@ module.exports = {
     },
 
     deleteUser(req, res) {
-        User.findOneAndDelete({ _id: req.params.id })
+        User.findOneAndDelete({ _id: req.params.userId })
         .then((user) => 
             !user ? res.status(404).json({ message: 'No user found with this id' }) 
             : Thought.deleteMany({ _id: { $in: user.thoughts} })
@@ -65,7 +65,8 @@ module.exports = {
         )
         .then((user) => 
             !user 
-            ? res.status(404).json({ message: 'No user found with this id' }) : res.json(user)
+            ? res.status(404).json({ message: 'No user found with this id' }) 
+            : res.json(user)
         )
         .catch((err) => res.status(500).json(err));
     },
@@ -80,7 +81,8 @@ module.exports = {
         )
         .then((user) => 
             !user 
-            ? res.status(404).json({ message: 'No user found with this id' }) : res.json(user)
+            ? res.status(404).json({ message: 'No user found with this id' }) 
+            : res.json(user)
         )
         .catch((err) => res.status(500).json(err));
     }

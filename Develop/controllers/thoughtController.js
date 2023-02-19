@@ -1,16 +1,17 @@
 const { User, Thought } = require('../models');
 
+
 // Get all thoughts
 module.exports = {
-    getThoughts(request) {
+    getThoughts(req, res) {
         Thought.find({})
-            .then((thought) => response.json(thought))
-            .catch((err) => response.status(500).json(err));
+            .then((thought) => res.json(thought))
+            .catch((err) => res.status(500).json(err));
     },
 
     // Get one thought by id
     getSingleThought(req, res) {
-        Thought.findOne({ _id: req.params.ThoughtId })
+        Thought.findOne({ _id: req.params.thoughtId })
             .select('-__v')
             .then((thought) =>
                 !thought
@@ -35,9 +36,17 @@ module.exports = {
         Thought.findOneAndDelete({ _id: req.params.thoughtId })
             .then((thought) =>
                 !thought
-                    ? res.status(404).json({ message: 'No thought found with this id' }) : res.json({ message: 'Thought deleted' })
+                    ? res.status(404).json({ message: 'No thought found with this id' }) 
+                    : User.findOneAndUpdate( {thought: req.params.thoughtId }, 
+                        { $pull: { thoughts: req.params.thoughtId } }, { new: true })
             )
-            .catch((err) => res.status(500).json(err));
+            .then((user) =>
+            !user ? res.status(404).json({ message: 'Thought deleted, but no user found with this id' }) :
+                    res.json({ message: 'Thought deleted' })
+            )
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err)});
     },
 
     // Update thought by id
@@ -49,7 +58,8 @@ module.exports = {
         )
             .then((thought) =>
                 !thought
-                    ? res.status(404).json({ message: 'No thought found with this id' }) : res.json(thought)
+                    ? res.status(404).json({ message: 'No thought found with this id' }) 
+                    : res.json(thought)
             )
             .catch((err) => {
                 console.log(err);
