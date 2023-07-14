@@ -26,6 +26,23 @@ User can also check if database is available by going to MongoDBCompass and refr
 User will be able to create a new user and thought. They can also update, delete and find a thought or user by ID. 
 User can also write a reaction to a thought and also be friend with other user by using their userId.
 
+**Add friends**
+
+![addFriend](https://github.com/Ravneet0112/SocialNetworkAPI/assets/101073782/ba024308-c59f-46cb-aeda-306b4cab208b)
+
+1. **Create User**
+
+![createUser](https://github.com/Ravneet0112/SocialNetworkAPI/assets/101073782/edb22bb7-da9c-4481-87c4-e8ae9fe6c498)
+
+**Update thoughts**
+
+![updateThoughts](https://github.com/Ravneet0112/SocialNetworkAPI/assets/101073782/5922c8ca-ec16-4adc-88e1-2ce0d3b014eb)
+
+**Update Users**
+
+![updateUser](https://github.com/Ravneet0112/SocialNetworkAPI/assets/101073782/6d3e535d-d87e-40c1-b20f-0e2caebf08bf)
+
+
 
 ## Contribution
 
